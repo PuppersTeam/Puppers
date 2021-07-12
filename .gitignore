@@ -1,0 +1,74 @@
+# Python files
+__pycache__/
+*.py[cod]
+*.egg*
+local_dev.py
+.mypy_cache
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+*~
+
+# Tags file
+/tags
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# OS generated files
+.DS_Store*
+thumbs.db
+Thumbs.db
+Desktop.ini
+
+# Front-end files
+node_modules
+.sass-cache
+prototype
+
+# Media files
+app/media/*
+app/static_collected/*
+
+# VI files
+.vimcache
+.vscode
+
+# Local settings
+app/settings/local_settings.py
+
+# Secret files
+**/keys/**
+secrets.*
+secret.*
+*-secret.*
+*.local
+
+# Secret Kubernetes Template files are okay (think on this)
+!@secret.template.*
+
+# Docker override files
+docker-compose.override.*
+tilt_modules
+
+# Generated folders
+gen/*
+
+# Certs
+.certs

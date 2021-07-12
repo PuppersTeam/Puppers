@@ -1,0 +1,8 @@
+ARG BUILDER_IMAGE=pt_invalid_builder_image
+FROM $BUILDER_IMAGE AS builder
+
+LABEL maintainer="Puppers Team"
+
+WORKDIR /app
+
+COPY . /app

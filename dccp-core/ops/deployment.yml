@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dccp-core
+  namespace: dccp-core
+  labels:
+    app: dccp-core
+spec:
+  selector:
+    matchLabels:
+      app: dccp-core
+  template:
+    metadata:
+      labels:
+        app: dccp-core
+    spec:
+      containers:
+      - name: dccp-core
+        image: $$RELEASE_CONTAINER
+        command:
+          - ./ops/run_release.sh
+        ports:
+        - containerPort: 80

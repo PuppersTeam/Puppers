@@ -1,0 +1,12 @@
+os.putenv('POD_NAME', 'pt-local-pod-name')
+os.putenv('CI_ENVIRONMENT_HOST', 'pt-local-ci-environment-host')
+os.putenv('CI_PROJECT_NAME_SLUG', 'pt-local-ci-project-name-slug')
+os.putenv('CI_COMMIT_SHORT_SHA', 'pt-local-ci-commit-short-sha')
+os.putenv('CI_COMMIT_REF_SLUG', 'pt-local-ci-commit-ref-slug')
+os.putenv('CI_ENVIRONMENT_SLUG', 'pt-local-ci-environment-slug')
+os.putenv('CI_PIPELINE_ID', 'pt-local-ci-pipeline-id')
+os.putenv('CI_BUILD_ID', 'pt-local-ci-build-id')
+os.putenv('CI_COMMIT_SHORT_SHA', 'pt-local-ci-commit-short-sha')
+os.putenv('CI_COMMIT_TAG', 'pt-local-ci-commit-tag')
+
+include('dccp-core/Tiltfile')

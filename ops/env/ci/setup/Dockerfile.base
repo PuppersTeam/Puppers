@@ -1,0 +1,61 @@
+FROM docker
+
+LABEL maintainer="Puppers Team"
+
+# Initialize with required dependencies
+RUN apk add --no-cache \
+  make \
+  gnupg \
+  shadow \
+  tree \
+  bash \
+  curl
+
+# Password Store Version Helpers
+ENV PASS_VERSION=1.6.5
+ENV PASS_HELPER_VERSION=0.6.2
+
+# Get Password Store via wget since it's not on APK as a package
+RUN wget https://git.zx2c4.com/password-store/snapshot/password-store-${PASS_VERSION}.tar.xz
+
+# Unpack it
+RUN tar -xf password-store-${PASS_VERSION}.tar.xz
+
+# Remove the tar file as we no longer need it
+RUN rm -rf password-store-${PASS_VERSION}.tar.xz
+
+# Move into the now unpacked directory so we can run the install script
+WORKDIR ./password-store-${PASS_VERSION}
+
+# Run the install script
+RUN make install
+
+# Move back to the root
+WORKDIR /
+
+# Delete the unpacked directory as we no longer need it
+RUN rm -rf password-store-${PASS_VERSION}
+
+# Fetch the docker-credential-pass helper via wget (since it's also not an APK package)
+RUN wget https://github.com/TimTheEnchanter/docker-credential-helpers/releases/download/v${PASS_HELPER_VERSION}/docker-credential-pass-v${PASS_HELPER_VERSION}-amd64.tar.gz
+
+# Unpack it
+RUN tar -zxvf docker-credential-pass-v${PASS_HELPER_VERSION}-amd64.tar.gz
+
+# Move the bin file into a place we can execute it from
+RUN mv docker-credential-pass /usr/local/bin/
+
+# Make it executable
+RUN chmod +x /usr/local/bin/docker-credential-pass
+
+# Remove the tar file as we no longer need it
+RUN rm -rf docker-credential-pass-v${PASS_HELPER_VERSION}-amd64.tar.gz
+
+# Set the Kubernetes version as found in the GCP Dashboard or API
+ARG kubernetes_version=v1.14.9
+
+# Install kubectl
+ADD https://storage.googleapis.com/kubernetes-release/release/${kubernetes_version}/bin/linux/amd64/kubectl /usr/local/bin/kubectl
+
+# Make kubectl executable
+RUN chmod +x /usr/local/bin/kubectl

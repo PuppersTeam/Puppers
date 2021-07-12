@@ -1,0 +1,37 @@
+registry = 'localhost:5000'
+tag = 'puppers/builders/apps/dccp-core'
+registry_path = "%s/%s" %(registry, tag)
+version_file = './package.json'
+target = 'builder'
+
+local("../ops/env/ci/runners/prepare.sh %s %s" % (registry_path, version_file))
+
+custom_build(
+  ref=tag,
+  command="../ops/env/ci/runners/build.sh $EXPECTED_REF %s %s %s" % (
+    registry_path,
+    version_file,
+    target
+  ),
+  deps=[
+    'ops/env/ci/runners/build.sh',
+    '.',
+  ],
+  live_update=[
+    sync('.', '/app'),
+  ],
+)
+
+k8s_yaml([
+  'ops/namespace.yml',
+  local(
+    "../ops/env/ci/helpers/gen_config.sh ./ops/deployment.yml %s" % (tag)
+  ),
+])
+
+k8s_resource(
+  workload='dccp-core',
+  objects=[
+    'dccp-core:namespace',
+  ],
+)

@@ -84,12 +84,11 @@ p {
 }
 
 .info {
-  float: right;
   width: 100%;
-  max-width: 1500px;
+  max-width: 1140px;
+  float: right;
   padding-top: 5rem;
-  padding-right: 10rem;
-  padding-left: 10rem;
+  margin-right: 1rem;
 }
 
 .button {
@@ -172,6 +171,10 @@ p {
   margin-bottom: 4rem;
 }
 
+.tokenomics {
+  margin-bottom: 20vh;
+}
+
 .tokenomics .items {
   padding: 1.5rem 2rem;
   background-color: rgba(41, 182, 246, 1);
@@ -201,11 +204,13 @@ p {
 
 /* Breakpoints */
 
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
   .info {
+    max-width: 100%;
     padding-top: 2rem;
     padding-right: 2rem;
     padding-left: 2rem;
+    margin-right: 0;
   }
 
   .tokenomics .items {
